@@ -14,7 +14,7 @@ class Student
       SELECT * 
       FROM songs
     SQL
-    DB[:conn].execute(SQLite::Database.new('db/students.db'))
+    DB[:conn].execute(sql)
   end
 
   def self.find_by_name(name)
