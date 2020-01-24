@@ -25,9 +25,8 @@ class Student
       FROM songs
       WHERE name = ?
     SQL
-    DB[:conn].execute(sql).map do |row|
-      self.new_from_db(row)
-    end
+    row = DB[:conn].execute(sql)
+    self.new_from_db(row)
   end
   
   def save
