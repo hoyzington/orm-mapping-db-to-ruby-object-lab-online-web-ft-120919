@@ -12,7 +12,7 @@ class Student
   def self.all
     sql = <<-SQL
       SELECT * 
-      FROM songs
+      FROM students
     SQL
     DB[:conn].execute(sql).map do |row|
       self.new_from_db(row)
@@ -58,23 +58,59 @@ class Student
   end
   
   def self.all_students_in_grade_9
-    
+    sql = <<-SQL
+      SELECT * 
+      FROM students
+      WHERE grade = 9
+    SQL
+    DB[:conn].execute(sql).map do |row|
+      self.new_from_db(row)
+    end
   end
   
   def self.students_below_12th_grade
-    
+    sql = <<-SQL
+      SELECT * 
+      FROM students
+      WHERE grade < 12
+    SQL
+    DB[:conn].execute(sql).map do |row|
+      self.new_from_db(row)
+    end
   end
   
-  def self.first_X_students_in_grade_10
-    
+  def self.first_X_students_in_grade_10(qty)
+    sql = <<-SQL
+      SELECT * 
+      FROM students
+      WHERE grade = 10
+    SQL
+    DB[:conn].execute(sql).map do |row|
+      self.new_from_db(row)
+    end[0..qty]
   end
   
   def self.first_student_in_grade_10
-    
+    sql = <<-SQL
+      SELECT * 
+      FROM students
+      WHERE grade = 10
+      LIMIT 1
+    SQL
+    DB[:conn].execute(sql, name).map do |row|
+      self.new_from_db(row)
+    end.first
   end
 
-  def self.all_students_in_grade_X
-    
+  def self.all_students_in_grade_X(grade)
+    sql = <<-SQL
+      SELECT * 
+      FROM students
+      WHERE grade = ?
+    SQL
+    DB[:conn].execute(sql, grade).map do |row|
+      self.new_from_db(row)
+    end
   end
 
 end
